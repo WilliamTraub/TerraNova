@@ -11,3 +11,6 @@ def read_csv(filename, skip = 1):
             data.append(row)
         return data
 
+def main():
+    data = read_csv(FILENAME)
+    print(data)
