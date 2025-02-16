@@ -18,3 +18,5 @@ def read_csv(filename):
         for row in csvfile:
             data.append(row)
     return data
+
+print(len(DESCRIPTIONS))
