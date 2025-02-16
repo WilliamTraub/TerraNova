@@ -1,7 +1,11 @@
 import csv
 from land import Land
 
-FILENAME = "ma_suffolk.csv"
+SUFFOLK = "ma_suffolk.csv"
+NORFOLK = "ma_norfolk.csv"
+MIDDLESEX = "ma_middlesex.csv"
+ESSEX = "ma_essex.csv"
+LST = [SUFFOLK, NORFOLK, MIDDLESEX, ESSEX]
 CITYCENTER = Land(42.3394, -71.0940)
 
 def read_csv(filename):
@@ -28,8 +32,8 @@ def lands(lat, lon, land_val):
         land_lst.append(land)
     return land_lst
 
-def main():
-    data = read_csv(FILENAME)
+def get_data(filename):
+    data = read_csv(filename)
     lat_vals = get_val(data, "lat")
     lon_vals = get_val(data, "lon")
     land_vals = get_val(data, "landval")
@@ -39,6 +43,13 @@ def main():
     land_lst = lands(lat_vals, lon_vals, land_vals)
     for land in land_lst:
         land.add_haversine(CITYCENTER)
-        print(land)
+    return land_lst
+
+def main():
+    lands = []
+    for item in LST:
+        lands.append(get_data(item))
+    lands = [land for row in lands for land in row]
+    print(len(lands))
 
 main()
