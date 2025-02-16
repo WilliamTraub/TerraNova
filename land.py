@@ -1,12 +1,9 @@
 class Land:
-    def __init__(self, lat, lon, land_value, zoning_law, crime_rate, pop_density):
+    def __init__(self, lat, lon, land_value):
         self.lat = lat
         self.land_value = land_value
         self.pollution = []
-        self.zoning_law = zoning_law
         self.lon = lon
-        self.crime_rate = crime_rate
-        self.pop_density = pop_density
 
     def add_pollution(self, var):
         self.pollution.append(var)
