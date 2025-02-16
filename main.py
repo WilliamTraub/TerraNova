@@ -13,7 +13,7 @@ import os
 
 FILENAME = "data/final_merged_ma.csv"
 ATTRIBS = ["zoning_description", "zoning_type", "zoning_subtype", "lbcs_structure_desc", \
-           "lat", "lon", "ll_gissqft"]
+           "lat", "lon", "ll_gissqft", "county"]
 CITYCENTER = Land(lat = 42.3394, lon = -71.0940)
 COUNTIES = ["barnstable", "berkshire", "bristol", "dukes", "essex", \
             "franklin", "hampden", "hampshire", "middlesex", "nantucket", \
