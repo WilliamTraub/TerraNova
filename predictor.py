@@ -10,7 +10,7 @@ import ssl
 ssl._create_default_https_context = ssl._create_unverified_context
 
 
-# Load and preprocess data
+# Neural network class
 
 class Predictor:
 
@@ -19,8 +19,7 @@ class Predictor:
         X = np.array([land.to_array()[0] for land in data])
         Y = np.array([land.to_array()[1] for land in data])
         
-        #ds = np.array(data)
-        number_of_possible_outcomes = 15 # whatever the number of possible outputs (building types) we have
+        number_of_possible_outcomes = 15 # Whatever the number of possible outputs (building types) we have
         
         split_ratio = 0.8
         split_index = int(len(X) * split_ratio)
@@ -32,9 +31,9 @@ class Predictor:
 
         # Define the neural network model
         self.model = keras.Sequential([
-            keras.layers.Input(shape=(3,)),  # Flatten 2D image into 1D array
+            keras.layers.Input(shape=(3,)),
             keras.layers.Dense(128, activation='relu'),  # Hidden layer with 128 neurons
-            keras.layers.Dense(number_of_possible_outcomes, activation='softmax')  # Output layer with 10 neurons (for 10 classes)
+            keras.layers.Dense(number_of_possible_outcomes, activation='softmax')  # Output layer with 15 neurons (for 15 classes)
         ])
 
         # Compile the model
@@ -51,13 +50,12 @@ class Predictor:
         
         self.xtest, self.ytest = x_test, y_test
 
-    # def makePrediction(self, entry):
-    #     return self.model.predict(entry)
+
     def makePrediction(self, entry):
         # Ensure entry is a 1D array of length 3
-        entry = np.array(entry)  # Should already be a 1D array with 3 values
+        entry = np.array(entry) 
         # Ensure the input has the correct shape (1, 3) for the model
-        if entry.shape == (3,):  # If it's already a 1D array of size 3
+        if entry.shape == (3,):
             entry = entry.reshape(1, 3)  # Reshape it to (1, 3)
         # Predict probabilities for each class
         prediction = self.model.predict(entry)
@@ -82,13 +80,7 @@ class Predictor:
         ax[0].set_ylabel("Value")
         ax[0].legend()
 
-        # # Second plot: Discrepancy between predicted and test values
-        # ax[1].bar(np.arange(len(discrepancy)), discrepancy, color='orange')
-        # ax[1].set_title("Discrepancy between Predicted and Test Values")
-        # ax[1].set_xlabel("Index")
-        # ax[1].set_ylabel("Discrepancy")
 
         # Show the plot
-        #plt.tight_layout()
         plt.show()
                 
