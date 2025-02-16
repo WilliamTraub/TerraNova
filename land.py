@@ -1,13 +1,14 @@
 import math
 
 class Land:
-    def __init__(self, lat, lon, land_value = 0):
+    def __init__(self, lat, lon, land_value = 0, sqft = 0):
         self.lat = lat
         self.lon = lon
         self.land_value = land_value
+        self.sqft = sqft
 
     def __str__(self):
-        return f"{self.haversine}"
+        return f"{self.sqft}"
     
     def add_haversine(self, other, r = 6371000):
         lat1, lat2 = math.radians(self.lat), math.radians(other.lat)
