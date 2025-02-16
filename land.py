@@ -1,17 +1,19 @@
 import math
 
 class Land:
-    def __init__(self, zoning_description = "", zoning_type = "", zoning_subtype = "", landval = 0, lat = 0, lon = 0, sqft = 0):
+    def __init__(self, zoning_description = "", zoning_type = "", zoning_subtype = "", lbcs_structure_desc = "",
+                 landval = 0, lat = 0, lon = 0, ll_gissqft = 0):
         self.zoning_desc = zoning_description
         self.zoning_type = zoning_type
         self.zoning_sub = zoning_subtype
+        self.lbcs_structure_desc = lbcs_structure_desc
         self.land_val = int(landval)
         self.lat = float(lat)
         self.lon = float(lon)
-        self.sqft = int(sqft)
+        self.ll_gissqft = int(ll_gissqft)
 
     def __str__(self):
-        return f"{self.sqft}"
+        return f"{self.ll_gissqft} and {self.lbcs_structure_desc}"
     
     def add_haversine(self, other, r = 6371000):
         lat1, lat2 = math.radians(self.lat), math.radians(other.lat)

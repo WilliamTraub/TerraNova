@@ -1,4 +1,4 @@
-import pandas as pd
+#import pandas as pd
 import csv
 from land import Land
 
@@ -11,8 +11,8 @@ from land import Land
 # merged_data.to_csv("data/merged_ma.csv", index=False)
 
 FILENAME = "data/merged_ma.csv"
-ATTRIBS = ["zoning_description", "zoning_type", "zoning_subtype", \
-           "landval", "lat", "lon", "sqft"]
+ATTRIBS = ["zoning_description", "zoning_type", "zoning_subtype", "lbcs_structure_desc", \
+           "landval", "lat", "lon", "ll_gissqft"]
 CITYCENTER = Land(lat = 42.3394, lon = -71.0940)
 
 def read_csv(filename):
@@ -44,5 +44,7 @@ def main():
     data = read_csv(FILENAME)
     data = clean_data(data, ATTRIBS)
     lands = create_lands(data)
+    for land in lands:
+        print(land)
 
 main()
