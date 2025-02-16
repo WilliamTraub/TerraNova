@@ -5,11 +5,9 @@ import numpy as np
 class Land:
     def __init__(self, zoning_description = 0, zoning_type = 0, zoning_subtype = 0, lbcs_structure_desc = 0,
                  lat = 0, lon = 0, ll_gissqft = 0, county = 0):
-        self.zoning_desc = zoning_description
-        self.zoning_type = zoning_type
-        self.zoning_sub = zoning_subtype
-        self.lbcs_structure_desc = lbcs_structure_desc
-        self.county = county
+        self.lbcs_structure_desc = self.quant_zoning(lbcs_structure_desc)
+
+        self.county = quant_county(county)
         self.lat = float(lat)
         self.lon = float(lon)
         self.ll_gissqft = float(ll_gissqft)
@@ -19,7 +17,7 @@ class Land:
         return f"{self.county}"
     
     def __array__(self):
-        return np.array([["lbcs_structure_desc", "self.", "ll_gissqft", "county"], ["zoning_description"]])
+        return np.array([[self.haversine, self.county, self.ll_gissqft], [self.lbcs_structure_desc]])
 
     def add_haversine(self, other, r = 6371000):
         print(other)
@@ -34,14 +32,21 @@ class Land:
         c = 2 * math.atan2(math.sqrt(a), math.sqrt(1 - a))
 
         return c * r
-
+   
+    def quant_county(self, county):
+        COUNTIES = ["barnstable", "berkshire", "bristol", "dukes", "essex", \
+            "franklin", "hampden", "hampshire", "middlesex", "nantucket", \
+            "norfolk", "plymouth", "suffolk", "worcester"]
+        return COUNTIES.index(county)
     def quant_zoning(self):
         zoning_map = {
             "Residential": 0,
-            "Commercial": 1,
-            "Mixed": 2,
+            "Commercial": 2,
+            "Mixed": 1,
             "Special": 3,
             "Industrial": 4
         }
         if self.zoning_type in zoning_map:
-            self.quant_zoning = zoning_map[self.zoning_type]
+            return zoning_map[self.zoning_type]
+        else:
+            return 0
