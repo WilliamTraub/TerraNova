@@ -9,7 +9,7 @@ class Land:
     def __str__(self):
         return f"{self.haversine}"
     
-    def add_haversine(self, other):
+    def add_haversine(self, other, r = 6371000):
         lat1, lat2 = math.radians(self.lat), math.radians(other.lat)
         long1, long2 = math.radians(self.lon), math.radians(other.lon)
 

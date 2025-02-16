@@ -21,7 +21,7 @@ def float_2d(lst):
         for i in range(len(row)):
             row[i] = float(row[i])
 
-def lands(lat, , land_val):
+def lands(lat, lon, land_val):
     land_lst = []
     for i in range(len(lat)):
         land = Land(lat[i], lon[i], land_val[i])
