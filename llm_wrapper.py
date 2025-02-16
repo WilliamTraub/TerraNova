@@ -10,3 +10,11 @@ DESCRIPTIONS = ['Industrial buildings and structures', 'Single-family buildings'
                 'Commercial buildings and other specialized structures', 'Multifamily structures: Three Units', \
                 'Office or store building with residence on top', 'Office or bank building', 'School or university buildings', \
                 'Cemetery, monument, tombstone, or mausoleum']
+
+def read_csv(filename):
+    with open(filename, "r") as infile:
+        csvfile = csv.DictReader(infile)
+        data = []
+        for row in csvfile:
+            data.append(row)
+    return data
