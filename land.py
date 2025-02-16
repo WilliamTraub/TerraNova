@@ -40,7 +40,7 @@ class Land:
         if county in COUNTIES:
             return COUNTIES.index(county)
         else: 
-            return 0 
+            return 0
     def quant_zoning(self, desc):
         zoning_map = DESCRIPTIONS = ['Industrial buildings and structures', 'Single-family buildings', \
                                'Multifamily structures: Two Units', 'Residential buildings', \

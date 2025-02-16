@@ -51,8 +51,18 @@ class Predictor:
         
         self.xtest, self.ytest = x_test, y_test
 
+    # def makePrediction(self, entry):
+    #     return self.model.predict(entry)
     def makePrediction(self, entry):
-        self.model.predict(entry)
+        # Ensure entry is a 1D array of length 3
+        entry = np.array(entry)  # Should already be a 1D array with 3 values
+        # Ensure the input has the correct shape (1, 3) for the model
+        if entry.shape == (3,):  # If it's already a 1D array of size 3
+            entry = entry.reshape(1, 3)  # Reshape it to (1, 3)
+        # Predict probabilities for each class
+        prediction = self.model.predict(entry)
+        # Get the predicted class label (the class with the highest probability)
+        return np.argmax(prediction, axis=1)[0]
         
     def displayPrediction(self):
         array_test = np.array(self.ytest)
@@ -72,13 +82,13 @@ class Predictor:
         ax[0].set_ylabel("Value")
         ax[0].legend()
 
-        # Second plot: Discrepancy between predicted and test values
-        ax[1].bar(np.arange(len(discrepancy)), discrepancy, color='orange')
-        ax[1].set_title("Discrepancy between Predicted and Test Values")
-        ax[1].set_xlabel("Index")
-        ax[1].set_ylabel("Discrepancy")
+        # # Second plot: Discrepancy between predicted and test values
+        # ax[1].bar(np.arange(len(discrepancy)), discrepancy, color='orange')
+        # ax[1].set_title("Discrepancy between Predicted and Test Values")
+        # ax[1].set_xlabel("Index")
+        # ax[1].set_ylabel("Discrepancy")
 
         # Show the plot
-        plt.tight_layout()
+        #plt.tight_layout()
         plt.show()
                 
