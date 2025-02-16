@@ -15,17 +15,24 @@ ssl._create_default_https_context = ssl._create_unverified_context
 class Predictor:
 
     def __init__(self, data): # a list of Lands:
-        ds = np.array(data)
-        number_of_possible_outcomes = ... # whatever the number of possible outputs (building types) we have
+        
+        X = np.array([land.to_array()[0] for land in data])
+        Y = np.array([land.to_array()[1] for land in data])
+        
+        #ds = np.array(data)
+        number_of_possible_outcomes = 15 # whatever the number of possible outputs (building types) we have
         
         split_ratio = 0.8
-        split_index = int(len(ds) * split_ratio)
-        (x_train, y_train) = ds[split_index:]
-        (x_test, y_test) = ds[:split_index]
+        split_index = int(len(X) * split_ratio)
+        
+        x_train = X[split_index:]
+        y_train = Y[split_index:]
+        x_test = X[:split_index]
+        y_test = Y[:split_index]
 
         # Define the neural network model
         self.model = keras.Sequential([
-            keras.layers.Input(shape=(4,)),  # Flatten 2D image into 1D array
+            keras.layers.Input(shape=(3,)),  # Flatten 2D image into 1D array
             keras.layers.Dense(128, activation='relu'),  # Hidden layer with 128 neurons
             keras.layers.Dense(number_of_possible_outcomes, activation='softmax')  # Output layer with 10 neurons (for 10 classes)
         ])
@@ -49,7 +56,7 @@ class Predictor:
         
     def displayPrediction(self):
         array_test = np.array(self.ytest)
-        array_predict = np.array([self.makePrediction(self, x) for x in self.xtest])
+        array_predict = np.array([self.makePrediction(x) for x in self.xtest])
 
         # Calculate the discrepancy
         discrepancy = array_predict - array_test

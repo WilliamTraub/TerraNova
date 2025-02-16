@@ -62,4 +62,8 @@ def main():
     for land in lands:
         if not land.lbcs_structure_desc == "":
             clean_lands.append(land)
+            
+    ai = Predictor(clean_lands)
+    ai.displayPrediction()
+    
 main()
