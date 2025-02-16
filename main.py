@@ -56,7 +56,6 @@ def create_lands(data):
 
 def main():
     data = pd.read_csv(FILENAME)
-    #print(data.head())
     data = clean_data(data, ATTRIBS)
     lands = create_lands(data)
     clean_lands = []
