@@ -6,13 +6,6 @@ from sklearn.impute import SimpleImputer
 from predictor import *
 
 
-# path = "/Users/hyjiang/innovaite/data"
-# FILES = os.listdir(path)
-
-# data = [pd.read_csv(os.path.join(path, file)) for file in FILES]
-# merged_data = pd.concat(data, ignore_index=True)
-
-# merged_data.to_csv("data/final_merged_ma.csv", index=False)
 
 FILENAME = "data/final_merged_ma.csv"
 ATTRIBS = ["zoning_description", "zoning_type", "zoning_subtype", "lbcs_structure_desc", \
@@ -28,15 +21,6 @@ DESCRIPTIONS = ['Industrial buildings and structures', 'Single-family buildings'
                                     'Commercial buildings and other specialized structures', 'Multifamily structures: Three Units', \
                                         'Office or store building with residence on top', 'Office or bank building', 'School or university buildings', \
                                             'Cemetery, monument, tombstone, or mausoleum']
-"""
-def read_csv(filename):
-    data = []
-    with open(filename, "r") as infile:
-        csvfile = csv.DictReader(infile)
-        for row in csvfile:
-            data.append(row)
-    return data
-"""
 
 def clean_data(data, keys):
     clean_lst = data.filter(items=ATTRIBS)
@@ -45,8 +29,6 @@ def clean_data(data, keys):
     return imputed
 
 def create_lands(data):
-    # Goal: turn dataframe into a list of objects
-    #print(data.head())
     lands = []
     for index, row in data.iterrows():
         land = Land(**row.to_dict())
