@@ -1,14 +1,14 @@
 import math
 
 class Land:
-    def __init__(self, lat, lon, land_value = 0, sqft = 0, zoning_desc = "", zoning_type = "", zoning_sub = ""):
-        self.lat = lat
-        self.lon = lon
-        self.land_value = land_value
-        self.sqft = sqft
-        self.zoning_desc = zoning_desc
+    def __init__(self, zoning_description = "", zoning_type = "", zoning_subtype = "", landval = 0, lat = 0, lon = 0, sqft = 0):
+        self.zoning_desc = zoning_description
         self.zoning_type = zoning_type
-        self.zoning_sub = zoning_sub
+        self.zoning_sub = zoning_subtype
+        self.land_val = int(landval)
+        self.lat = float(lat)
+        self.lon = float(lon)
+        self.sqft = int(sqft)
 
     def __str__(self):
         return f"{self.sqft}"
