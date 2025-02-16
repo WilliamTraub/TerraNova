@@ -3,18 +3,28 @@ import csv
 from land import Land
 import os
 
-path = "/Users/hyjiang/innovaite/data"
-FILES = os.listdir(path)
+# path = "/Users/hyjiang/innovaite/data"
+# FILES = os.listdir(path)
 
-data = [pd.read_csv(os.path.join(path, file)) for file in FILES]
-merged_data = pd.concat(data, ignore_index=True)
+# data = [pd.read_csv(os.path.join(path, file)) for file in FILES]
+# merged_data = pd.concat(data, ignore_index=True)
 
-merged_data.to_csv("data/merged_ma.csv", index=False)
+# merged_data.to_csv("data/final_merged_ma.csv", index=False)
 
-FILENAME = "data/merged_ma.csv"
+FILENAME = "data/final_merged_ma.csv"
 ATTRIBS = ["zoning_description", "zoning_type", "zoning_subtype", "lbcs_structure_desc", \
            "lat", "lon", "ll_gissqft"]
 CITYCENTER = Land(lat = 42.3394, lon = -71.0940)
+COUNTIES = ["barnstable", "berkshire", "bristol", "dukes", "essex", \
+            "franklin", "hampden", "hampshire", "middlesex", "nantucket", \
+            "norfolk", "plymouth", "suffolk", "worcester"]
+DESCRIPTIONS = descriptions = ['Industrial buildings and structures', 'Single-family buildings', \
+                               'Multifamily structures: Two Units', 'Residential buildings', \
+                                'Electric lines, phone and cable lines, etc.', 'Electric substation and distribution facility', \
+                                'Churches, synagogues, temples, mosques, etc.', 'Store or shop building', 'Multifamily structures', \
+                                    'Commercial buildings and other specialized structures', 'Multifamily structures: Three Units', \
+                                        'Office or store building with residence on top', 'Office or bank building', 'School or university buildings', \
+                                            'Cemetery, monument, tombstone, or mausoleum']
 
 def read_csv(filename):
     data = []
@@ -49,6 +59,5 @@ def main():
     for land in lands:
         if not land.lbcs_structure_desc == "":
             clean_lands.append(land)
-    print(len(clean_lands))
 
 main()
