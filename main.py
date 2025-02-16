@@ -1,59 +1,48 @@
+import pandas as pd
 import csv
 from land import Land
 
-SUFFOLK = "ma_suffolk.csv"
-NORFOLK = "ma_norfolk.csv"
-MIDDLESEX = "ma_middlesex.csv"
-ESSEX = "ma_essex.csv"
-LST = [SUFFOLK, NORFOLK, MIDDLESEX, ESSEX]
-CITYCENTER = Land(42.3394, -71.0940)
+# FILES = ["data/ma_essex.csv", "data/ma_middlesex.csv", \
+#          "data/ma_norfolk.csv", "data/ma_suffolk.csv"]
+
+# data = [pd.read_csv(file) for file in FILES]
+# merged_data = pd.concat(data, ignore_index=True)
+
+# merged_data.to_csv("data/merged_ma.csv", index=False)
+
+FILENAME = "data/merged_ma.csv"
+ATTRIBS = ["zoning_description", "zoning_type", "zoning_subtype", \
+           "landval", "lat", "lon", "sqft"]
+CITYCENTER = Land(lat = 42.3394, lon = -71.0940)
 
 def read_csv(filename):
     data = []
     with open(filename, "r") as infile:
-        data = []
         csvfile = csv.DictReader(infile)
         for row in csvfile:
             data.append(row)
     return data
 
-def get_val(dct, key):
-    return [row[key] for row in dct]
+def clean_data(data, keys):
+    clean_lst = []
+    for dct in data:
+        clean_dct = {}
+        for key in keys:
+            clean_dct[key] = dct[key]
+        clean_lst.append(clean_dct)
+    return clean_lst
 
-def float_2d(lst):
-    for row in lst:
-        for i in range(len(row)):
-            if row[i]:
-                row[i] = float(row[i])
-
-def lands(lat, lon, land_val, sqft, zoning_desc_vals, zoning_type_vals, zoning_sub_vals):
-    land_lst = []
-    for i in range(len(lat)):
-        land = Land(lat[i], lon[i], land_val[i], sqft[i], zoning_desc_vals[i], zoning_type_vals[i], zoning_sub_vals[i])
-        land_lst.append(land)
-    return land_lst
-
-def get_data(filename):
-    data = read_csv(filename)
-    lat_vals = get_val(data, "lat")
-    lon_vals = get_val(data, "lon")
-    land_vals = get_val(data, "landval")
-    sqft_vals = get_val(data, "sqft")
-    zoning_desc_vals = get_val(data, "zoning_description")
-    zoning_type_vals = get_val(data, "zoning_type")
-    zoning_sub_vals = get_val(data, "zoning_subtype")
-
-    float_2d([lat_vals, lon_vals, land_vals, sqft_vals])
-
-    land_lst = lands(lat_vals, lon_vals, land_vals, sqft_vals, zoning_desc_vals, zoning_type_vals, zoning_sub_vals)
-    for land in land_lst:
+def create_lands(data):
+    lands = []
+    for row in data:
+        land = Land(**row)
         land.add_haversine(CITYCENTER)
-    return land_lst
+        lands.append(land)
+    return lands
 
 def main():
-    lands = []
-    for item in LST:
-        lands.append(get_data(item))
-    lands = [land for row in lands for land in row]
+    data = read_csv(FILENAME)
+    data = clean_data(data, ATTRIBS)
+    lands = create_lands(data)
 
 main()
