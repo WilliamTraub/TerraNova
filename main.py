@@ -45,7 +45,10 @@ def main():
     data = read_csv(FILENAME)
     data = clean_data(data, ATTRIBS)
     lands = create_lands(data)
+    clean_lands = []
     for land in lands:
-        print(land)
+        if not land.lbcs_structure_desc == "":
+            clean_lands.append(land)
+    print(len(clean_lands))
 
 main()
