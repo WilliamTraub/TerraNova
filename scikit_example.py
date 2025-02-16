@@ -51,7 +51,7 @@ def preprocess_image(image_path):
     return img
 
 
-for i in range(12):
+for i in range(15):
     # index = random.randint(0, len(x_test) - 1)
     # image = x_test
     
