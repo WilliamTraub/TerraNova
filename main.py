@@ -1,18 +1,19 @@
-#import pandas as pd
+import pandas as pd
 import csv
 from land import Land
+import os
 
-# FILES = ["data/ma_essex.csv", "data/ma_middlesex.csv", \
-#          "data/ma_norfolk.csv", "data/ma_suffolk.csv"]
+path = "/Users/hyjiang/innovaite/data"
+FILES = os.listdir(path)
 
-# data = [pd.read_csv(file) for file in FILES]
-# merged_data = pd.concat(data, ignore_index=True)
+data = [pd.read_csv(os.path.join(path, file)) for file in FILES]
+merged_data = pd.concat(data, ignore_index=True)
 
-# merged_data.to_csv("data/merged_ma.csv", index=False)
+merged_data.to_csv("data/merged_ma.csv", index=False)
 
 FILENAME = "data/merged_ma.csv"
 ATTRIBS = ["zoning_description", "zoning_type", "zoning_subtype", "lbcs_structure_desc", \
-           "landval", "lat", "lon", "ll_gissqft"]
+           "lat", "lon", "ll_gissqft"]
 CITYCENTER = Land(lat = 42.3394, lon = -71.0940)
 
 def read_csv(filename):
