@@ -12,8 +12,8 @@ ssl._create_default_https_context = ssl._create_unverified_context
 
 # Load and preprocess data
 
-def predictor(data): # a list of Lands:
-    ds = numpy.array(data)
+def createModel(data): # a list of Lands:
+    ds = np.array(data)
     number_of_possible_outcomes = ... # whatever the number of possible outputs (building types) we have
     
     split_ratio = 0.8
@@ -40,40 +40,7 @@ def predictor(data): # a list of Lands:
     test_loss, test_acc = model.evaluate(x_test, y_test)
     print("\nTest accuracy:", test_acc)
 
+    return model
 
-    # Load and preprocess your custom image
-    def preprocess_image(image_path):
-        img = Image.open(image_path).convert("L")  # Convert to grayscale
-        img = img.resize((28, 28))  # Resize to 28x28 pixels
-        img = np.array(img)  # Convert to numpy array
-        img = 255 - img  # Invert the colors (since MNIST has white background, black text)
-        img = img / 255.0  # Normalize pixel values to [0, 1]
-        img = img.reshape(1, 28, 28)  # Reshape for model input (batch size of 1)
-
-        # Debug: Visualize the preprocessed image
-        plt.imshow(img[0], cmap='gray')
-        plt.title("Preprocessed Custom Image")
-        plt.show()
-
-        return img
-
-
-    for i in range(15):
-        # index = random.randint(0, len(x_test) - 1)
-        # image = x_test
-        
-        image = preprocess_image(f"matejs_testing_shit/{i}.png")
-        index = 0
-
-        # Predict the digit
-        prediction = model.predict(image)
-        predicted_digit = np.argmax(prediction[index])
-
-        # Get the confidence value (probability of the predicted class)
-        confidence = prediction[index][predicted_digit]
-
-        # Display the image and predicted number
-        plt.imshow(image[index], cmap='gray')
-        plt.title(f"Predicted: {predicted_digit}\nConfidence: {confidence:.4f}")
-        plt.show()
-
+def makePrediction(model, entry):
+    model.predict(entry)

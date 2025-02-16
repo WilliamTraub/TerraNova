@@ -3,3 +3,5 @@ change2
 change3
 change4
 change6
+
+[ [[lat long landvalue][housingtype]] ...]
