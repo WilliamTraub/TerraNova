@@ -23,7 +23,8 @@ def get_val(dct, key):
 def float_2d(lst):
     for row in lst:
         for i in range(len(row)):
-            row[i] = float(row[i])
+            if row[i]:
+                row[i] = float(row[i])
 
 def lands(lat, lon, land_val, sqft, zoning_desc_vals, zoning_type_vals, zoning_sub_vals):
     land_lst = []
@@ -32,8 +33,8 @@ def lands(lat, lon, land_val, sqft, zoning_desc_vals, zoning_type_vals, zoning_s
         land_lst.append(land)
     return land_lst
 
-def main():
-    data = read_csv(FILENAME)
+def get_data(filename):
+    data = read_csv(filename)
     lat_vals = get_val(data, "lat")
     lon_vals = get_val(data, "lon")
     land_vals = get_val(data, "landval")
@@ -44,9 +45,15 @@ def main():
 
     float_2d([lat_vals, lon_vals, land_vals, sqft_vals])
 
-    land_lst = lands(lat_vals, lon_vals, land_vals)
+    land_lst = lands(lat_vals, lon_vals, land_vals, sqft_vals, zoning_desc_vals, zoning_type_vals, zoning_sub_vals)
     for land in land_lst:
         land.add_haversine(CITYCENTER)
-        print(land)
+    return land_lst
+
+def main():
+    lands = []
+    for item in LST:
+        lands.append(get_data(item))
+    lands = [land for row in lands for land in row]
 
 main()
