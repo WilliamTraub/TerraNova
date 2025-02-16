@@ -15,3 +15,6 @@ class Land:
         score = 100 - (self.pollution * 0.5) - (self.crime_rate * 0.3) + (self.green_space * 0.7) + ((100 - self.traffic) * 0.5)
         return max(0, min(score, 100))
     
+    def __str__(self):
+        return f"Land at {self.lat}, {self.lon} with value {self.land_value}"
+    
