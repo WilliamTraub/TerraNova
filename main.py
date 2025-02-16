@@ -5,6 +5,7 @@ SUFFOLK = "ma_suffolk.csv"
 NORFOLK = "ma_norfolk.csv"
 MIDDLESEX = "ma_middlesex.csv"
 ESSEX = "ma_essex.csv"
+LST = [SUFFOLK, NORFOLK, MIDDLESEX, ESSEX]
 CITYCENTER = Land(42.3394, -71.0940)
 
 def read_csv(filename):
@@ -45,6 +46,10 @@ def get_data(filename):
     return land_lst
 
 def main():
-    
+    lands = []
+    for item in LST:
+        lands.append(get_data(item))
+    lands = [land for row in lands for land in row]
+    print(len(lands))
 
 main()
