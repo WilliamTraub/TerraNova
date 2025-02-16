@@ -21,23 +21,24 @@ def float_2d(lst):
         for i in range(len(row)):
             row[i] = float(row[i])
 
-def lands(lat, long, land_val):
+def lands(lat, , land_val):
     land_lst = []
     for i in range(len(lat)):
-        land = Land(lat[i], long[i], land_val[i])
+        land = Land(lat[i], lon[i], land_val[i])
         land_lst.append(land)
     return land_lst
 
 def main():
     data = read_csv(FILENAME)
     lat_vals = get_val(data, "lat")
-    long_vals = get_val(data, "lon")
+    lon_vals = get_val(data, "lon")
     land_vals = get_val(data, "landval")
 
-    float_2d([lat_vals, long_vals, land_vals])
+    float_2d([lat_vals, lon_vals, land_vals])
 
-    land_lst = lands(lat_vals, long_vals, land_vals)
+    land_lst = lands(lat_vals, lon_vals, land_vals)
     for land in land_lst:
+        land.add_haversine(CITYCENTER)
         print(land)
 
 main()

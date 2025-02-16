@@ -1,3 +1,5 @@
+import math
+
 class Land:
     def __init__(self, lat, lon, land_value = 0):
         self.lat = lat
@@ -5,11 +7,11 @@ class Land:
         self.land_value = land_value
 
     def __str__(self):
-        return f"Land at {self.lat}, {self.lon} with value {self.land_value}"
+        return f"{self.haversine}"
     
     def add_haversine(self, other):
         lat1, lat2 = math.radians(self.lat), math.radians(other.lat)
-        long1, long2 = math.radians(self.long), math.radians(other.long)
+        long1, long2 = math.radians(self.lon), math.radians(other.lon)
 
         lat_delta = lat2 - lat1
         long_delta = long2 - long1
