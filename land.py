@@ -27,8 +27,12 @@ class Land:
         self.haversine = c * r
 
     def quant_zoning(self):
-        if self.zoning_type = "Residential":
-            self.quant_zoning = 0
-        elif self.zoning_type = "Commercial":
-            self.quant_zoning = 1
-        elif self.zoning_type = "Special":
+        zoning_map = {
+            "Residential": 0,
+            "Commercial": 1,
+            "Mixed": 2,
+            "Special": 3,
+            "Industrial": 4
+        }
+        if self.zoning_type in zoning_map:
+            self.quant_zoning = zoning_map[self.zoning_type]
